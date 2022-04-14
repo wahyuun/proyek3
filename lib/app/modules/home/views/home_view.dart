@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../../PageRegister/views/page_register_view.dart';
 import '../../login/views/login_view.dart';
 import '../controllers/home_controller.dart';
 import '../../../routes/app_pages.dart';
 
 
 class HomeView extends GetView<HomeController> {
+  const HomeView({Key? key}):super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,16 +19,16 @@ class HomeView extends GetView<HomeController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: Get.width * 0.6,
-              height: Get.width * 0.6,
+              // width: Get.width * 0.5,
+              height: Get.width * 0.4,
               child: Image.asset(
-                "assets/img/tia.jpg",
+                "assets/img/polindra.png",
                 fit: BoxFit.cover,
               ),
             ),
             SizedBox(height: 60),
             Text(
-              "PUSAT INFORMASI UKM POLINDRA",
+              "PUSAT INFORMASI DAN MANAJEMEN UKM POLINDRA",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -66,13 +68,13 @@ class HomeView extends GetView<HomeController> {
             Container(
               width: Get.width,
               
-              child: ElevatedButton(
-                child: Text("Masuk sebagai tamu",
+        child: ElevatedButton(
+                child: Text("Daftar",
                 style: TextStyle(color: Colors.black),
                 ),
                 onPressed: () {
-        // pindah ke halaman simple
-                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginView()));
+                // pindah ke halaman simple
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PageRegisterView()));
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,

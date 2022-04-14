@@ -1,3 +1,4 @@
+import 'package:app_ukm/app/modules/uploadProposal/views/upload_proposal_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -5,6 +6,8 @@ import 'package:get/get.dart';
 import '../controllers/page_u_k_m_controller.dart';
 
 class PageUKMView extends GetView<PageUKMController> {
+  const PageUKMView({Key? key}):super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +16,9 @@ class PageUKMView extends GetView<PageUKMController> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          onPressed: (){},
+          onPressed: (){
+            navigator?.pop(context);
+          },
           icon: Icon(Icons.arrow_back_ios,
           color: Color(0xFF22215B)),
         ),
@@ -38,7 +43,16 @@ class PageUKMView extends GetView<PageUKMController> {
                 fontWeight: FontWeight.w700
                 ),
               ),
-              TextButton(onPressed: (){}, child: Text("Lihat Semua")),
+              TextButton(onPressed: (){}, child: Text("Lihat Semua"))
+            ],
+          ),
+        ),
+        Container(
+          child: Row(
+            children: [
+              TextButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => UploadProposalView()));
+              }, child: Text("upload Proposal"))
             ],
           ),
         ),

@@ -1,11 +1,46 @@
+import 'dart:convert';
+
+import 'package:app_ukm/app/modules/home/views/home_view.dart';
+import 'package:app_ukm/app/modules/services/auth_services.dart';
+import 'package:app_ukm/app/modules/services/globals.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 import '../../pageUKM/views/page_u_k_m_view.dart';
 import '../controllers/login_controller.dart';
+import 'package:http/http.dart'as http;
 
-class LoginView extends GetView<LoginController> {
+
+
+class LoginView extends StatefulWidget{
+  const LoginView({Key? key}) : super(key: key);
+  @override
+  _LoginViewState createState()=> _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  String _email = '';
+  String _password = '';
+
+  loginPressed() async {
+      if (_email.isNotEmpty && _password.isNotEmpty) {
+        http.Response response = await AuthServices.login(_email, _password);
+        Map responseMap = jsonDecode(response.body);
+        if (response.statusCode==200) {
+          Navigator.push(
+            context, 
+            MaterialPageRoute(
+              builder: (BuildContext context)=> const PageUKMView(),
+          ));
+        }else{
+          errorSnackBar(context, responseMap.values.first);
+        }
+      }else{
+        errorSnackBar(context, 'enter all required fields');
+      }
+    }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +79,9 @@ class LoginView extends GetView<LoginController> {
                       ),
                     ),
                   ),
+                onChanged: (value){
+                  _email = value;
+                },
                 ),
               ),
               SizedBox(height: 8),
@@ -82,6 +120,9 @@ class LoginView extends GetView<LoginController> {
                       ),
                     ),
                   ),
+                onChanged: (value){
+                  _password = value;
+                },
                 ),
               ),
 
@@ -90,10 +131,7 @@ class LoginView extends GetView<LoginController> {
             margin: EdgeInsets.only(right: 20, left: 20),
             width: Get.width,
             child: ElevatedButton(
-              onPressed: () {
-        // pindah ke halaman simple
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PageUKMView()));
-                },
+              onPressed: () => loginPressed(),
               child: Text("Masuk",
               style: TextStyle(
                 fontWeight: FontWeight.w700,

@@ -11,6 +11,7 @@ void main() {
     GetMaterialApp(
       title: "Application",
       initialRoute:"/",
+      debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: "/", page: ()=>HomeView()),
       ],
